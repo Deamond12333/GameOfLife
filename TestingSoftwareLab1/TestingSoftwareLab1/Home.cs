@@ -14,7 +14,7 @@ namespace TestingSoftwareLab1
     {
         List<Point> startField = new List<Point>();
         bool isStart = false;
-        BackgroundWorker thread;
+        BackgroundWorker thread = new BackgroundWorker();
 
         int height, width;
         public Home()
@@ -33,62 +33,29 @@ namespace TestingSoftwareLab1
 
             height = field.Height - 1;
             width = field.Width - 1;
-
             clear.Enabled = false;
-            start.Enabled = false;
-        }
 
-        private void NumericUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            List<Point> buffer = new List<Point>();
-            switch (((NumericUpDown)sender).Name)
-            {
-                case "height":
-                    {
-                        foreach(Point point in startField)
-                        {
-                            if ((int)((NumericUpDown)sender).Value * 10 <= point.Y) buffer.Add(point);
-                        }
-                        foreach(Point point in buffer)
-                        {
-                            startField.Remove(point);
-                        }
-                    }break;
-
-                case "width":
-                    {
-                        foreach (Point point in startField)
-                        {
-                            if ((int)((NumericUpDown)sender).Value * 10 <= point.X) buffer.Add(point);
-                        }
-                        foreach (Point point in buffer)
-                        {
-                            startField.Remove(point);
-                        }
-                    } break;
-            }
-            field.Refresh();
+            thread.WorkerSupportsCancellation = true;
+            thread.WorkerReportsProgress = true;
+            thread.DoWork += thread_DoWork;
+            thread.ProgressChanged += thread_ProgressChanged;
         }
 
         private void start_Click(object sender, EventArgs e)
         {
             isStart = !isStart;
+
             if (isStart)
             {
                 clear.Enabled = false;
                 start.Text = "Stop life";
-
-                thread = new BackgroundWorker();
-                thread.WorkerSupportsCancellation = true;
-                thread.WorkerReportsProgress = true;
-                thread.DoWork += thread_DoWork;
-                thread.ProgressChanged += thread_ProgressChanged;
                 thread.RunWorkerAsync();
             }
             else
             {
-                clear.Enabled = true;
+                thread.CancelAsync();
                 thread.Dispose();
+                clear.Enabled = true;
                 start.Text = "Start life";
             }
         }
@@ -109,9 +76,9 @@ namespace TestingSoftwareLab1
 
                         if (neighbours == 2)
                         {
-                            foreach (Point point in startField)
+                            for (int k = 0; k < startField.Count; ++k )
                             {
-                                if (qurPoint.X == point.X && qurPoint.Y == point.Y)
+                                if (qurPoint.X == startField[k].X && qurPoint.Y == startField[k].Y)
                                 {
                                     buffer.Add(qurPoint);
                                     break;
@@ -151,9 +118,9 @@ namespace TestingSoftwareLab1
                     if (i < 0 || j < 0) continue;
                     if (i >= width || j >= height) continue;
 
-                    foreach (Point p in startField)
+                    for (int k = 0; k < startField.Count; ++k)
                     {
-                        if (p.X == i && p.Y == j) count++;
+                        if (startField[k].X == i && startField[k].Y == j) count++;
                     }
                 }
             }
@@ -184,14 +151,13 @@ namespace TestingSoftwareLab1
 
             if (startField.Count > 0)
             {
-                foreach (Point p in startField)
+                for (int i = 0; i < startField.Count; ++i )
                 {
-                    if (p.X == point.X && p.Y == point.Y) return;
+                    if (startField[i].X == point.X && startField[i].Y == point.Y) return;
                 }
             }
             startField.Add(point);
-            start.Enabled = true;
-            clear.Enabled = true;
+            clear.Enabled = !isStart;
             field.Refresh();
         }
 
@@ -207,11 +173,7 @@ namespace TestingSoftwareLab1
                 }
             }
 
-            if (startField.Count == 0)
-            {
-                start.Enabled = false;
-                clear.Enabled = false;
-            }
+            if (startField.Count == 0) clear.Enabled = false;
         }
 
         private void figure_MouseDown(object sender, MouseEventArgs e)
@@ -235,7 +197,6 @@ namespace TestingSoftwareLab1
         private void clear_Click(object sender, EventArgs e)
         {
             startField.Clear();
-            start.Enabled = false;
             clear.Enabled = false;
             field.Refresh();
         }
