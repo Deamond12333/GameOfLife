@@ -40,8 +40,6 @@
             this.mwss = new System.Windows.Forms.PictureBox();
             this.hwss = new System.Windows.Forms.PictureBox();
             this.field = new System.Windows.Forms.PictureBox();
-            this.speed = new System.Windows.Forms.TrackBar();
-            this.label2 = new System.Windows.Forms.Label();
             this.clear = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.glider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.block)).BeginInit();
@@ -52,7 +50,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.mwss)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hwss)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.field)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.speed)).BeginInit();
             this.SuspendLayout();
             // 
             // start
@@ -178,26 +175,6 @@
             this.field.MouseClick += new System.Windows.Forms.MouseEventHandler(this.field_MouseClick);
             this.field.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.field_MouseDoubleClick);
             // 
-            // speed
-            // 
-            this.speed.Location = new System.Drawing.Point(9, 72);
-            this.speed.Maximum = 90;
-            this.speed.Minimum = 20;
-            this.speed.Name = "speed";
-            this.speed.Size = new System.Drawing.Size(178, 45);
-            this.speed.TabIndex = 17;
-            this.speed.Value = 55;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(5, 49);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(182, 20);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "+             Speed               -";
-            // 
             // clear
             // 
             this.clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -216,8 +193,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(954, 544);
             this.Controls.Add(this.clear);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.speed);
             this.Controls.Add(this.field);
             this.Controls.Add(this.hwss);
             this.Controls.Add(this.mwss);
@@ -244,7 +219,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.mwss)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hwss)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.field)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.speed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -263,8 +237,6 @@
         private System.Windows.Forms.PictureBox mwss;
         private System.Windows.Forms.PictureBox hwss;
         public System.Windows.Forms.PictureBox field;
-        private System.Windows.Forms.TrackBar speed;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button clear;
     }
 }

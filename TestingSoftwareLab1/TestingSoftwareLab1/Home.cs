@@ -16,7 +16,7 @@ namespace TestingSoftwareLab1
         bool isStart = false;
         BackgroundWorker thread;
 
-        int height, width, speedUp;
+        int height, width;
         public Home()
         {
             InitializeComponent();
@@ -33,7 +33,9 @@ namespace TestingSoftwareLab1
 
             height = field.Height - 1;
             width = field.Width - 1;
-            speedUp = 2 * speed.Value;
+
+            clear.Enabled = false;
+            start.Enabled = false;
         }
 
         private void NumericUpDown_ValueChanged(object sender, EventArgs e)
@@ -73,6 +75,7 @@ namespace TestingSoftwareLab1
             isStart = !isStart;
             if (isStart)
             {
+                clear.Enabled = false;
                 start.Text = "Stop life";
 
                 thread = new BackgroundWorker();
@@ -84,7 +87,8 @@ namespace TestingSoftwareLab1
             }
             else
             {
-                thread.CancelAsync();
+                clear.Enabled = true;
+                thread.Dispose();
                 start.Text = "Start life";
             }
         }
@@ -127,14 +131,13 @@ namespace TestingSoftwareLab1
                 }
                 thread.ReportProgress(1);
 
-                Thread.Sleep(speedUp); //должно быть не менее 30, иначе поток не остановится!!
+                Thread.Sleep(60); //должно быть не менее 60, иначе поток не остановится!!
             }
         }
 
         void thread_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             field.Refresh();
-            speedUp = 2 * speed.Value;
         }
 
         private int countOfNeighbours(Point point)
@@ -187,22 +190,27 @@ namespace TestingSoftwareLab1
                 }
             }
             startField.Add(point);
+            start.Enabled = true;
+            clear.Enabled = true;
             field.Refresh();
         }
 
         private void field_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (startField.Count > 0)
+            for (int i = 0; i < startField.Count; ++i)
             {
-                for (int i = 0; i < startField.Count; ++i)
+                if (startField[i].X == e.X - e.X % 10 && startField[i].Y == e.Y - e.Y % 10)
                 {
-                    if (startField[i].X == e.X - e.X % 10 && startField[i].Y == e.Y - e.Y % 10)
-                    {
-                        startField.RemoveAt(i);
-                        field.Refresh();
-                        return;
-                    }
+                    startField.RemoveAt(i);
+                    field.Refresh();
+                    return;
                 }
+            }
+
+            if (startField.Count == 0)
+            {
+                start.Enabled = false;
+                clear.Enabled = false;
             }
         }
 
@@ -227,6 +235,8 @@ namespace TestingSoftwareLab1
         private void clear_Click(object sender, EventArgs e)
         {
             startField.Clear();
+            start.Enabled = false;
+            clear.Enabled = false;
             field.Refresh();
         }
     }
