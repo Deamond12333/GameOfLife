@@ -14,9 +14,7 @@ namespace TestingSoftwareLab1
     {
         List<Point> startField = new List<Point>();
         bool isStart = false;
-
-        Process process;
-        Thread thread;
+        BackgroundWorker thread;
         
         public Home()
         {
@@ -74,19 +72,89 @@ namespace TestingSoftwareLab1
                 width.Enabled = false;
                 height.Enabled = false;
 
-                process = new Process(startField, (int)width.Value, (int)height.Value);
-                thread = new Thread(process.run);
-                thread.Start();
+                thread = new BackgroundWorker();
+                thread.WorkerSupportsCancellation = true;
+                thread.WorkerReportsProgress = true;
+                thread.DoWork += thread_DoWork;
+                thread.ProgressChanged += thread_ProgressChanged;
+                thread.RunWorkerAsync();
             }
             else
             {
-                thread.Abort();
+                thread.CancelAsync();
                 start.Text = "Start life";
                 width.Enabled = true;
                 height.Enabled = true;
             }
         }
 
+        private void thread_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (isStart)
+            {
+                List<Point> buffer = new List<Point>();
+
+                for (int i = 0; i <= (int)width.Value * 10; i += 10)
+                {
+                    for (int j = 0; j <= (int)height.Value * 10; j += 10)
+                    {
+                        Point qurPoint = new Point(i, j);
+
+                        int neighbours = countOfNeighbours(qurPoint);
+
+                        if (neighbours == 2)
+                        {
+                            foreach (Point point in startField)
+                            {
+                                if (qurPoint.X == point.X && qurPoint.Y == point.Y)
+                                {
+                                    buffer.Add(qurPoint);
+                                    break;
+                                }
+                            }
+                        }
+                        else if (neighbours == 3) buffer.Add(qurPoint);
+                        else continue;
+                    }
+                }
+
+                startField.Clear();
+
+                foreach (Point point in buffer)
+                {
+                    startField.Add(point);
+                }
+                thread.ReportProgress(1);
+
+                Thread.Sleep(50);
+            }
+        }
+
+        void thread_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            field.Refresh();
+        }
+
+        private int countOfNeighbours(Point point)
+        {
+            int count = 0;
+            for (int i = point.X - 10; i <= point.X + 10; i+=10)
+            {
+                for (int j = point.Y - 10; j <= point.Y + 10; j+=10)
+                {
+                    if (i == point.X && j == point.Y) continue;
+                    if (i < 0 || j < 0) continue;
+                    if (i >= (int)width.Value * 10 || j >= (int)height.Value * 10) continue;
+
+                    foreach (Point p in startField)
+                    {
+                        if (p.X == i && p.Y == j) count++;
+                    }
+                }
+            }
+
+            return count;
+        }
       
         private void field_Paint(object sender, PaintEventArgs e)
         {
@@ -139,6 +207,24 @@ namespace TestingSoftwareLab1
                     }
                 }
             }
+        }
+
+        private void figure_MouseDown(object sender, MouseEventArgs e)
+        {
+            ((PictureBox)sender).DoDragDrop(new Bitmap(((PictureBox)sender).Image), DragDropEffects.Copy | DragDropEffects.Move);
+        }
+
+        private void field_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.Bitmap))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void field_DragDrop(object sender, DragEventArgs e)
+        {
+            Bitmap bitmap = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
         }
     }
 }

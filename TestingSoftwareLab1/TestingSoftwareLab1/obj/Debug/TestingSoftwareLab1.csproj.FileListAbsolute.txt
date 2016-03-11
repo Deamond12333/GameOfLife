@@ -7,3 +7,12 @@ C:\Users\DNS\Documents\Visual Studio 2013\Projects\TestingSoftwareLab1\TestingSo
 C:\Users\DNS\Documents\Visual Studio 2013\Projects\TestingSoftwareLab1\TestingSoftwareLab1\obj\Debug\TestingSoftwareLab1.exe
 C:\Users\DNS\Documents\Visual Studio 2013\Projects\TestingSoftwareLab1\TestingSoftwareLab1\obj\Debug\TestingSoftwareLab1.pdb
 C:\Users\DNS\Documents\Visual Studio 2013\Projects\TestingSoftwareLab1\TestingSoftwareLab1\obj\Debug\TestingSoftwareLab1.csprojResolveAssemblyReference.cache
+C:\Users\DNS\Documents\GitHub\GameOfLife\TestingSoftwareLab1\TestingSoftwareLab1\bin\Debug\TestingSoftwareLab1.exe.config
+C:\Users\DNS\Documents\GitHub\GameOfLife\TestingSoftwareLab1\TestingSoftwareLab1\obj\Debug\TestingSoftwareLab1.exe
+C:\Users\DNS\Documents\GitHub\GameOfLife\TestingSoftwareLab1\TestingSoftwareLab1\obj\Debug\TestingSoftwareLab1.pdb
+C:\Users\DNS\Documents\GitHub\GameOfLife\TestingSoftwareLab1\TestingSoftwareLab1\bin\Debug\TestingSoftwareLab1.exe
+C:\Users\DNS\Documents\GitHub\GameOfLife\TestingSoftwareLab1\TestingSoftwareLab1\bin\Debug\TestingSoftwareLab1.pdb
+C:\Users\DNS\Documents\GitHub\GameOfLife\TestingSoftwareLab1\TestingSoftwareLab1\obj\Debug\TestingSoftwareLab1.csprojResolveAssemblyReference.cache
+C:\Users\DNS\Documents\GitHub\GameOfLife\TestingSoftwareLab1\TestingSoftwareLab1\obj\Debug\TestingSoftwareLab1.Home.resources
+C:\Users\DNS\Documents\GitHub\GameOfLife\TestingSoftwareLab1\TestingSoftwareLab1\obj\Debug\TestingSoftwareLab1.Properties.Resources.resources
+C:\Users\DNS\Documents\GitHub\GameOfLife\TestingSoftwareLab1\TestingSoftwareLab1\obj\Debug\TestingSoftwareLab1.csproj.GenerateResource.Cache

@@ -141,6 +141,7 @@
             this.glider.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.glider.TabIndex = 7;
             this.glider.TabStop = false;
+            this.glider.MouseDown += new System.Windows.Forms.MouseEventHandler(this.figure_MouseDown);
             // 
             // label1
             // 
@@ -161,6 +162,7 @@
             this.block.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.block.TabIndex = 9;
             this.block.TabStop = false;
+            this.block.MouseDown += new System.Windows.Forms.MouseEventHandler(this.figure_MouseDown);
             // 
             // blinker
             // 
@@ -171,6 +173,7 @@
             this.blinker.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.blinker.TabIndex = 10;
             this.blinker.TabStop = false;
+            this.blinker.MouseDown += new System.Windows.Forms.MouseEventHandler(this.figure_MouseDown);
             // 
             // boat
             // 
@@ -181,6 +184,7 @@
             this.boat.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.boat.TabIndex = 11;
             this.boat.TabStop = false;
+            this.boat.MouseDown += new System.Windows.Forms.MouseEventHandler(this.figure_MouseDown);
             // 
             // tub
             // 
@@ -191,6 +195,7 @@
             this.tub.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.tub.TabIndex = 12;
             this.tub.TabStop = false;
+            this.tub.MouseDown += new System.Windows.Forms.MouseEventHandler(this.figure_MouseDown);
             // 
             // lwss
             // 
@@ -201,6 +206,7 @@
             this.lwss.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.lwss.TabIndex = 13;
             this.lwss.TabStop = false;
+            this.lwss.MouseDown += new System.Windows.Forms.MouseEventHandler(this.figure_MouseDown);
             // 
             // mwss
             // 
@@ -211,6 +217,7 @@
             this.mwss.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.mwss.TabIndex = 14;
             this.mwss.TabStop = false;
+            this.mwss.MouseDown += new System.Windows.Forms.MouseEventHandler(this.figure_MouseDown);
             // 
             // hwss
             // 
@@ -221,6 +228,7 @@
             this.hwss.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.hwss.TabIndex = 15;
             this.hwss.TabStop = false;
+            this.hwss.MouseDown += new System.Windows.Forms.MouseEventHandler(this.figure_MouseDown);
             // 
             // field
             // 
@@ -230,6 +238,8 @@
             this.field.Size = new System.Drawing.Size(601, 401);
             this.field.TabIndex = 16;
             this.field.TabStop = false;
+            this.field.DragDrop += new System.Windows.Forms.DragEventHandler(this.field_DragDrop);
+            this.field.DragEnter += new System.Windows.Forms.DragEventHandler(this.field_DragEnter);
             this.field.Paint += new System.Windows.Forms.PaintEventHandler(this.field_Paint);
             this.field.MouseClick += new System.Windows.Forms.MouseEventHandler(this.field_MouseClick);
             this.field.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.field_MouseDoubleClick);
