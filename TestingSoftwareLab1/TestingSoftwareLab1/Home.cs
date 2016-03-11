@@ -15,7 +15,8 @@ namespace TestingSoftwareLab1
         List<Point> startField = new List<Point>();
         bool isStart = false;
         BackgroundWorker thread;
-        
+
+        int height, width, speedUp;
         public Home()
         {
             InitializeComponent();
@@ -26,9 +27,13 @@ namespace TestingSoftwareLab1
             tip.SetToolTip(boat, "Boat");
             tip.SetToolTip(blinker, "Blinker");
             tip.SetToolTip(tub, "Tub");
-            tip.SetToolTip(lwss, "LWSS");
-            tip.SetToolTip(mwss, "MWSS");
-            tip.SetToolTip(hwss, "HWSS");
+            tip.SetToolTip(lwss, "Small bird");
+            tip.SetToolTip(mwss, "Average bird");
+            tip.SetToolTip(hwss, "Big bird");
+
+            height = field.Height - 1;
+            width = field.Width - 1;
+            speedUp = 2 * speed.Value;
         }
 
         private void NumericUpDown_ValueChanged(object sender, EventArgs e)
@@ -69,8 +74,6 @@ namespace TestingSoftwareLab1
             if (isStart)
             {
                 start.Text = "Stop life";
-                width.Enabled = false;
-                height.Enabled = false;
 
                 thread = new BackgroundWorker();
                 thread.WorkerSupportsCancellation = true;
@@ -83,8 +86,6 @@ namespace TestingSoftwareLab1
             {
                 thread.CancelAsync();
                 start.Text = "Start life";
-                width.Enabled = true;
-                height.Enabled = true;
             }
         }
 
@@ -94,9 +95,9 @@ namespace TestingSoftwareLab1
             {
                 List<Point> buffer = new List<Point>();
 
-                for (int i = 0; i <= (int)width.Value * 10; i += 10)
+                for (int i = 0; i <= width; i += 10)
                 {
-                    for (int j = 0; j <= (int)height.Value * 10; j += 10)
+                    for (int j = 0; j <= height; j += 10)
                     {
                         Point qurPoint = new Point(i, j);
 
@@ -126,13 +127,14 @@ namespace TestingSoftwareLab1
                 }
                 thread.ReportProgress(1);
 
-                Thread.Sleep(50);
+                Thread.Sleep(speedUp); //должно быть не менее 30, иначе поток не остановится!!
             }
         }
 
         void thread_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             field.Refresh();
+            speedUp = 2 * speed.Value;
         }
 
         private int countOfNeighbours(Point point)
@@ -144,7 +146,7 @@ namespace TestingSoftwareLab1
                 {
                     if (i == point.X && j == point.Y) continue;
                     if (i < 0 || j < 0) continue;
-                    if (i >= (int)width.Value * 10 || j >= (int)height.Value * 10) continue;
+                    if (i >= width || j >= height) continue;
 
                     foreach (Point p in startField)
                     {
@@ -158,28 +160,23 @@ namespace TestingSoftwareLab1
       
         private void field_Paint(object sender, PaintEventArgs e)
         {
-            for (int i = 0; i <= (int)width.Value; ++i)
+            for (int i = 0; i <= width / 10; ++i)
             {
-                for (int j = 0; j <= (int)height.Value; ++j)
+                for (int j = 0; j <= height / 10; ++j)
                 {
                     e.Graphics.DrawLine(new Pen(Brushes.Black, 1), new Point(10 * i, 0), new Point(10 * i, 10 * j));
                     e.Graphics.DrawLine(new Pen(Brushes.Black, 1), new Point(0, 10 * j), new Point(10 * i, 10 * j));
                 }
             }
 
-            if (startField.Count > 0)
+            for (int i = 0; i < startField.Count; ++i)
             {
-                foreach (Point point in startField)
-                {
-                    e.Graphics.FillRectangle(Brushes.Red, point.X + 1, point.Y + 1, 9, 9);
-                }
+                e.Graphics.FillRectangle(Brushes.Red, startField[i].X + 1, startField[i].Y + 1, 9, 9);
             }
         }
 
         private void field_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.X > ((int)width.Value * 10) - 1 || e.Y > ((int)height.Value * 10) - 1) return;
-
             Point point = new Point(e.X  - e.X % 10, e.Y - e.Y % 10);
 
             if (startField.Count > 0)
@@ -225,6 +222,12 @@ namespace TestingSoftwareLab1
         private void field_DragDrop(object sender, DragEventArgs e)
         {
             Bitmap bitmap = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
+        }
+
+        private void clear_Click(object sender, EventArgs e)
+        {
+            startField.Clear();
+            field.Refresh();
         }
     }
 }
