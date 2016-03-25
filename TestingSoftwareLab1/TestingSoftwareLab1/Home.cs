@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace TestingSoftwareLab1
@@ -14,7 +13,7 @@ namespace TestingSoftwareLab1
     {
         List<Point> startField = new List<Point>();
         bool isStart = false;
-        BackgroundWorker thread = new BackgroundWorker();
+        Timer timer = new Timer();
 
         int height, width;
         public Home()
@@ -34,11 +33,47 @@ namespace TestingSoftwareLab1
             height = field.Height - 1;
             width = field.Width - 1;
             clear.Enabled = false;
+            timer.Interval = speed.Value;
+            timer.Tick += timer_Tick;
+        }
 
-            thread.WorkerSupportsCancellation = true;
-            thread.WorkerReportsProgress = true;
-            thread.DoWork += thread_DoWork;
-            thread.ProgressChanged += thread_ProgressChanged;
+        void timer_Tick(object sender, EventArgs e)
+        {
+            List<Point> buffer = new List<Point>();
+
+            for (int i = 0; i <= width; i += 10)
+            {
+                for (int j = 0; j <= height; j += 10)
+                {
+                    Point qurPoint = new Point(i, j);
+
+                    int neighbours = countOfNeighbours(qurPoint);
+
+                    if (neighbours == 2)
+                    {
+                        for (int k = 0; k < startField.Count; ++k)
+                        {
+                            if (qurPoint.X == startField[k].X && qurPoint.Y == startField[k].Y)
+                            {
+                                buffer.Add(qurPoint);
+                                break;
+                            }
+                        }
+                    }
+                    else if (neighbours == 3) buffer.Add(qurPoint);
+                    else continue;
+                }
+            }
+
+            startField.Clear();
+
+            foreach (Point point in buffer)
+            {
+                startField.Add(point);
+            }
+
+            field.Refresh();
+            timer.Interval = speed.Value;
         }
 
         private void start_Click(object sender, EventArgs e)
@@ -49,62 +84,14 @@ namespace TestingSoftwareLab1
             {
                 clear.Enabled = false;
                 start.Text = "Stop life";
-                thread.RunWorkerAsync();
+                timer.Start();
             }
             else
             {
-                thread.CancelAsync();
-                thread.Dispose();
+                timer.Stop();
                 clear.Enabled = true;
                 start.Text = "Start life";
             }
-        }
-
-        private void thread_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (isStart)
-            {
-                List<Point> buffer = new List<Point>();
-
-                for (int i = 0; i <= width; i += 10)
-                {
-                    for (int j = 0; j <= height; j += 10)
-                    {
-                        Point qurPoint = new Point(i, j);
-
-                        int neighbours = countOfNeighbours(qurPoint);
-
-                        if (neighbours == 2)
-                        {
-                            for (int k = 0; k < startField.Count; ++k )
-                            {
-                                if (qurPoint.X == startField[k].X && qurPoint.Y == startField[k].Y)
-                                {
-                                    buffer.Add(qurPoint);
-                                    break;
-                                }
-                            }
-                        }
-                        else if (neighbours == 3) buffer.Add(qurPoint);
-                        else continue;
-                    }
-                }
-
-                startField.Clear();
-
-                foreach (Point point in buffer)
-                {
-                    startField.Add(point);
-                }
-                thread.ReportProgress(1);
-
-                Thread.Sleep(60); //должно быть не менее 60, иначе поток не остановится!!
-            }
-        }
-
-        void thread_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            field.Refresh();
         }
 
         private int countOfNeighbours(Point point)
@@ -178,20 +165,18 @@ namespace TestingSoftwareLab1
 
         private void figure_MouseDown(object sender, MouseEventArgs e)
         {
-            ((PictureBox)sender).DoDragDrop(new Bitmap(((PictureBox)sender).Image), DragDropEffects.Copy | DragDropEffects.Move);
+            ((PictureBox)sender).DoDragDrop((PictureBox)sender, DragDropEffects.Copy | DragDropEffects.Move);
         }
-
         private void field_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.Bitmap))
-                e.Effect = DragDropEffects.Copy;
-            else
-                e.Effect = DragDropEffects.None;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop, false) == true)
+            {
+                e.Effect = DragDropEffects.All;
+            }
         }
-
         private void field_DragDrop(object sender, DragEventArgs e)
         {
-            Bitmap bitmap = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
+            //Bitmap bitmap = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
         }
 
         private void clear_Click(object sender, EventArgs e)

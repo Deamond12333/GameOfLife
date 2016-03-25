@@ -41,6 +41,8 @@
             this.hwss = new System.Windows.Forms.PictureBox();
             this.field = new System.Windows.Forms.PictureBox();
             this.clear = new System.Windows.Forms.Button();
+            this.speed = new System.Windows.Forms.TrackBar();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.glider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.block)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blinker)).BeginInit();
@@ -50,6 +52,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.mwss)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hwss)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.field)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speed)).BeginInit();
             this.SuspendLayout();
             // 
             // start
@@ -66,7 +69,7 @@
             // glider
             // 
             this.glider.Image = ((System.Drawing.Image)(resources.GetObject("glider.Image")));
-            this.glider.Location = new System.Drawing.Point(9, 150);
+            this.glider.Location = new System.Drawing.Point(6, 255);
             this.glider.Name = "glider";
             this.glider.Size = new System.Drawing.Size(30, 30);
             this.glider.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -78,7 +81,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(5, 120);
+            this.label1.Location = new System.Drawing.Point(2, 225);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 20);
             this.label1.TabIndex = 8;
@@ -87,7 +90,7 @@
             // block
             // 
             this.block.Image = ((System.Drawing.Image)(resources.GetObject("block.Image")));
-            this.block.Location = new System.Drawing.Point(79, 210);
+            this.block.Location = new System.Drawing.Point(76, 315);
             this.block.Name = "block";
             this.block.Size = new System.Drawing.Size(20, 20);
             this.block.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -98,7 +101,7 @@
             // blinker
             // 
             this.blinker.Image = ((System.Drawing.Image)(resources.GetObject("blinker.Image")));
-            this.blinker.Location = new System.Drawing.Point(69, 190);
+            this.blinker.Location = new System.Drawing.Point(66, 295);
             this.blinker.Name = "blinker";
             this.blinker.Size = new System.Drawing.Size(30, 10);
             this.blinker.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -109,7 +112,7 @@
             // boat
             // 
             this.boat.Image = ((System.Drawing.Image)(resources.GetObject("boat.Image")));
-            this.boat.Location = new System.Drawing.Point(69, 150);
+            this.boat.Location = new System.Drawing.Point(66, 255);
             this.boat.Name = "boat";
             this.boat.Size = new System.Drawing.Size(30, 30);
             this.boat.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -120,7 +123,7 @@
             // tub
             // 
             this.tub.Image = ((System.Drawing.Image)(resources.GetObject("tub.Image")));
-            this.tub.Location = new System.Drawing.Point(117, 210);
+            this.tub.Location = new System.Drawing.Point(114, 315);
             this.tub.Name = "tub";
             this.tub.Size = new System.Drawing.Size(30, 30);
             this.tub.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -131,7 +134,7 @@
             // lwss
             // 
             this.lwss.Image = ((System.Drawing.Image)(resources.GetObject("lwss.Image")));
-            this.lwss.Location = new System.Drawing.Point(9, 190);
+            this.lwss.Location = new System.Drawing.Point(6, 295);
             this.lwss.Name = "lwss";
             this.lwss.Size = new System.Drawing.Size(50, 40);
             this.lwss.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -142,7 +145,7 @@
             // mwss
             // 
             this.mwss.Image = ((System.Drawing.Image)(resources.GetObject("mwss.Image")));
-            this.mwss.Location = new System.Drawing.Point(9, 236);
+            this.mwss.Location = new System.Drawing.Point(6, 341);
             this.mwss.Name = "mwss";
             this.mwss.Size = new System.Drawing.Size(60, 50);
             this.mwss.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -153,7 +156,7 @@
             // hwss
             // 
             this.hwss.Image = ((System.Drawing.Image)(resources.GetObject("hwss.Image")));
-            this.hwss.Location = new System.Drawing.Point(117, 150);
+            this.hwss.Location = new System.Drawing.Point(114, 255);
             this.hwss.Name = "hwss";
             this.hwss.Size = new System.Drawing.Size(70, 50);
             this.hwss.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -187,11 +190,34 @@
             this.clear.UseVisualStyleBackColor = true;
             this.clear.Click += new System.EventHandler(this.clear_Click);
             // 
+            // speed
+            // 
+            this.speed.Location = new System.Drawing.Point(6, 105);
+            this.speed.Maximum = 300;
+            this.speed.Minimum = 1;
+            this.speed.Name = "speed";
+            this.speed.Size = new System.Drawing.Size(178, 45);
+            this.speed.TabIndex = 20;
+            this.speed.Value = 60;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(12, 86);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(163, 16);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "+            Speed            -";
+            // 
             // Home
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(954, 544);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.speed);
             this.Controls.Add(this.clear);
             this.Controls.Add(this.field);
             this.Controls.Add(this.hwss);
@@ -219,6 +245,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.mwss)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hwss)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.field)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -238,5 +265,7 @@
         private System.Windows.Forms.PictureBox hwss;
         public System.Windows.Forms.PictureBox field;
         private System.Windows.Forms.Button clear;
+        private System.Windows.Forms.TrackBar speed;
+        private System.Windows.Forms.Label label2;
     }
 }
