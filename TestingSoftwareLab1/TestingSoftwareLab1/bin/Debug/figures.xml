@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Figures>
+	<Figure Name="Dot" Image="images\dot.png" Points="0,0"/>
+	<Figure Name="Glider" Image="images\glider.png" Points="0,0;1,0;2,0;0,1;1,2"/>
+	<Figure Name="Small bird" Image="images\small-bird.png" Points="0,0;0,-1;0,-2;-1,-3;-4,-3;-4,-1;-3,0;-2,0;-1,0"/>
+	<Figure Name="Middle Bird" Image="images\middle-bird.png" Points="0,0;0,-1;0,-2;-1,-3;-3,-4;-5,-3;-5,-1;-4,0;-3,0;-2,0;-1,0"/>
+	<Figure Name="Big Bird" Image="images\big-bird.png" Points="0,0;0,-1;0,-2;-1,-3;-3,-4;-4,-4;-6,-3;-6,-1;-5,0;-4,0;-3,0;-2,0;-1,0"/>
+	<Figure Name="Blinker" Image="images\blinker.png" Points="0,0;1,0;2,0"/>
+	<Figure Name="Block" Image="images\block.png" Points="0,0;1,0;1,1;0,1"/>
+	<Figure Name="Boat" Image="images\boat.png" Points="0,0;1,0;0,-1;1,-2;-1,2"/>
+	<Figure Name="Tub" Image="images\tub.png" Points="0,1;1,2;1,0;2,1"/>
+</Figures>
